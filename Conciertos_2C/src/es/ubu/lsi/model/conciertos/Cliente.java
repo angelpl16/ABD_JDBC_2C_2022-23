@@ -1,5 +1,7 @@
 package es.ubu.lsi.model.conciertos;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,9 @@ public class Cliente {
 	private String cp;
 	@Column(name="ciudad")
 	private String ciudad;
+	
+	@OneToMany(mappedBy = "cliente",cascade=CascadeType.ALL)
+	private Set<Compra> compras;
 	
 	public Cliente() {
 		

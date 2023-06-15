@@ -1,6 +1,7 @@
 package es.ubu.lsi.model.conciertos;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -22,22 +23,28 @@ public class Concierto {
 	private int tickets;
 	@Column(name="precio")
 	private float precio;
-	@Column(name="idGrupo")
-	private int idGrupo;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idGrupo")
+	private Grupo grupo;
+	
+	@OneToMany(mappedBy="concierto",cascade=CascadeType.ALL)
+	private Set<Compra> compras;
+	
 	
 	public Concierto() {
 		
 	}
 	
-	public Concierto(int idConcierto, String nombre, String ciudad, Date fecha, int tickets, float precio,
-			int idGrupo) {
+	public Concierto(int idConcierto, String nombre, String ciudad, Date fecha, int tickets, float precio, Grupo grupo) {
 		this.idConcierto = idConcierto;
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.fecha = fecha;
 		this.tickets = tickets;
 		this.precio = precio;
-		this.idGrupo = idGrupo;
+		this.grupo=grupo;
+		
 	}
 
 

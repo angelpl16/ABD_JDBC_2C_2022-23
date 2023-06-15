@@ -1,5 +1,7 @@
 package es.ubu.lsi.model.conciertos;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +18,9 @@ public class Grupo {
 	@Column(name="activo")
 	private int activo;
 	
+	@OneToMany(mappedBy = "grupo",cascade=CascadeType.ALL)
+	private Set<Concierto> conciertos;
+	
 	public Grupo() {
 		
 	}
@@ -25,6 +30,14 @@ public class Grupo {
 		this.nombre = nombre;
 		this.estilo = estilo;
 		this.activo = activo;
+	}
+	
+	public Set<Concierto> getConciertos(){
+		return this.conciertos;
+	}
+	
+	public void setConciertos() {
+		
 	}
 
 

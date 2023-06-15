@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import es.ubu.lsi.model.conciertos.Grupo;
 import es.ubu.lsi.service.PersistenceException;
@@ -17,19 +18,22 @@ public class ServiceImpl implements Service {
 	
 	@Override
 	public void comprar(Date fecha, String nif, int grupo, int tickets) throws PersistenceException {
-		// TODO Auto-generated method stub
+		emf = Persistence.createEntityManagerFactory("Conciertos");
+		entity = emf.createEntityManager();
 
 	}
 
 	@Override
 	public void eliminarCliente(String nif) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+		emf = Persistence.createEntityManagerFactory("Conciertos");
+		entity = emf.createEntityManager();
+		
 	}
 
 	@Override
 	public List<Grupo> consultarGrupos() throws PersistenceException {
-		// TODO Auto-generated method stub
+		emf = Persistence.createEntityManagerFactory("Conciertos");
+		entity = emf.createEntityManager();
 		return null;
 	}
 
