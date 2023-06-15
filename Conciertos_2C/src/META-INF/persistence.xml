@@ -9,14 +9,19 @@
 		
 		<!-- COMPLETAR LISTA DE CLASES POR LOS ALUMNOS -->	
 		
+		<class>es.ubu.lsi.model.conciertos.Cliente.java</class>
+		<class>es.ubu.lsi.model.conciertos.Concierto.java</class>
+		<class>es.ubu.lsi.model.conciertos.Compra.java</class>
+		<class>es.ubu.lsi.model.conciertos.Grupo.java</class>
+		
 	
 	<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
 			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:XE" />
 			<property name="hibernate.default_schema" value="HR" />
-			<property name="hibernate.connection.username" value="HR" />
-			<property name="hibernate.connection.password" value="hr" />
+			<property name="hibernate.connection.username" value="hr" />
+			<property name="hibernate.connection.password" value="HR" />
 			<property name="hibernate.connection.autocommit" value="false" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
