@@ -1,7 +1,7 @@
 package es.ubu.lsi.service.conciertos;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import es.ubu.lsi.model.conciertos.Grupo;
 import es.ubu.lsi.service.PersistenceException;
@@ -45,6 +45,6 @@ public interface Service {
 	 * @return grupos
 	 * @throws PersistenceException si se produce un error
 	 */
-	public List<Grupo> consultarGrupos() throws PersistenceException;
+	public Set<Grupo> consultarGrupos() throws PersistenceException;
 
 }

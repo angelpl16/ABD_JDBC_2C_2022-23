@@ -1,6 +1,7 @@
 package es.ubu.lsi.dao;
 
-import java.util.List;
+//import java.util.List;
+import java.util.Set;
 
 /**
  * DAO.
@@ -41,5 +42,5 @@ public interface DAO<E,K> {
 	 * 
 	 * @return all entities
 	 */
-	List<E> findAll();
+	Set<E> findAll();
 }

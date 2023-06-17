@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Set;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +46,7 @@ public class TestClient {
 	/** Simple date format. */
 	private static SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
+	
 	/**
 	 * Main.
 	 * 
@@ -346,7 +347,7 @@ public class TestClient {
 	private static void consultarGruposUsandoGrafo(Service implService) {
 		try {
 			System.out.println("Información completa con grafos de entidades...");
-			List<Grupo> grupos = implService.consultarGrupos();		
+			Set<Grupo> grupos = implService.consultarGrupos();		
 			for (Grupo grupo : grupos) {
 				System.out.println(grupo.toString());
 				Set<Concierto> conciertos = grupo.getConciertos();

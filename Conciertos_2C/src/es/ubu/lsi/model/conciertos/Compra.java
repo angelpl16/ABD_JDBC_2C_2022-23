@@ -21,16 +21,16 @@ public class Compra {
 	private Cliente cliente;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="icConcierto")
+	@JoinColumn(name="idConcierto")
 	private Concierto concierto;
 	
 	public Compra() {
 		
 	}
 	
-	public Compra(int idCompra, int idConcierto, Cliente cliente, int n_tickets) {
+	public Compra(int idCompra, Concierto concierto, Cliente cliente, int n_tickets) {
 		this.idCompra = idCompra;
-		this.idConcierto = idConcierto;
+		this.concierto = concierto;
 		this.cliente = cliente;
 		this.n_tickets = n_tickets;
 	}

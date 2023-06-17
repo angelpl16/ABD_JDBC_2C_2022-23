@@ -46,6 +46,10 @@ public class Concierto {
 		this.grupo=grupo;
 		
 	}
+	
+	public Set<Compra> getCompras(){
+		return this.compras;
+	}
 
 
 }
