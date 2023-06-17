@@ -39,5 +39,33 @@ public class Compra {
 		return this.cliente;
 	}
 
+	public int getIdCompra() {
+		return idCompra;
+	}
+
+	public void setIdCompra(int idCompra) {
+		this.idCompra = idCompra;
+	}
+
+	public int getN_tickets() {
+		return n_tickets;
+	}
+
+	public void setN_tickets(int n_tickets) {
+		this.n_tickets = n_tickets;
+	}
+
+	public Concierto getConcierto() {
+		return concierto;
+	}
+
+	public void setConcierto(Concierto concierto) {
+		this.concierto = concierto;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	
 }

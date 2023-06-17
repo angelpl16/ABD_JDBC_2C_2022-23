@@ -40,5 +40,41 @@ public class Grupo {
 		
 	}
 
+	public int getIdGrupo() {
+		return idGrupo;
+	}
+
+	public void setIdGrupo(int idGrupo) {
+		this.idGrupo = idGrupo;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getEstilo() {
+		return estilo;
+	}
+
+	public void setEstilo(String estilo) {
+		this.estilo = estilo;
+	}
+
+	public int getActivo() {
+		return activo;
+	}
+
+	public void setActivo(int activo) {
+		this.activo = activo;
+	}
+
+	public void setConciertos(Set<Concierto> conciertos) {
+		this.conciertos = conciertos;
+	}
+
 
 }
