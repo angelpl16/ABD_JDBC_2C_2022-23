@@ -1,6 +1,8 @@
 package es.ubu.lsi.service.conciertos;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -20,7 +22,7 @@ public class ServiceImpl extends PersistenceService implements Service {
 	private static EntityManager em;
 
 	private static EntityManagerFactory emf;
-	
+
 	private static EntityTransaction et;
 
 	@Override
@@ -28,10 +30,10 @@ public class ServiceImpl extends PersistenceService implements Service {
 		emf = Persistence.createEntityManagerFactory("Conciertos");
 
 		em = emf.createEntityManager();
-		
+
 		et = em.getTransaction();
 		et.begin();
-		
+
 		SQLClienteDAO cliente = new SQLClienteDAO(em);
 
 		try {
@@ -46,23 +48,22 @@ public class ServiceImpl extends PersistenceService implements Service {
 			if (entradasDisponibles < tickets) {
 				throw new PersistenceException("No hay entradas disponibles");
 			}
-			
+
 			int maxIDCompra = obtenerUltimoIDCompra(em);
-			
+
 			maxIDCompra++;
-			
+
 			Compra compra = new Compra();
-	        compra.setIdCompra(maxIDCompra);
-	        compra.setConcierto(obtenerConcierto(em, grupo, fecha));
-	        compra.setCliente(cliente.findById(nif));
-	        compra.setN_tickets(tickets);
-	        em.persist(compra);
-	        
+			compra.setIdCompra(maxIDCompra);
+			compra.setConcierto(obtenerConcierto(em, grupo, fecha));
+			compra.setCliente(cliente.findById(nif));
+			compra.setN_tickets(tickets);
+			em.persist(compra);
+
 			restarTicketsComprados(em, grupo, fecha, tickets);
-			
 
 		} catch (Exception e) {
-			
+
 			System.out.println("Se produjo un problema durante el proceso de compra");
 
 		}
@@ -75,24 +76,40 @@ public class ServiceImpl extends PersistenceService implements Service {
 
 	@Override
 	public Set<Grupo> consultarGrupos() throws PersistenceException {
-		return null;
+		Set<Grupo> resultado = new HashSet<Grupo>();
+		
+		emf = Persistence.createEntityManagerFactory("Conciertos");
+
+		em = emf.createEntityManager();
+
+		et = em.getTransaction();
+		et.begin();
+
+		String consulta = "SELECT * FROM Grupo JOIN FETCH g.conciertos c JOIN FETCH c.compras co JOIN FETCH co.cliente";
+		List<?> gruposList = em.createQuery(consulta).getResultList(); 
+		
+		for (Object resValue : gruposList) {
+			resultado.add((Grupo) resValue);
+		}
+		
+		return resultado;
 	}
 
 	private int obtenerUltimoIDCompra(EntityManager em) {
 		String consulta = "SELECT MAX(e.idCompra) FROM Compra e";
 		int maxID = (int) em.createQuery(consulta).getSingleResult();
-		return maxID;		
+		return maxID;
 	}
 
 	private Concierto obtenerConcierto(EntityManager em, int grupo, Date fecha) {
 		String consulta = "SELECT e.idConcierto FROM concierto e where e.idGrupo = ?1 and e.fecha = ?2";
-		Concierto resultado = (Concierto) em.createQuery(consulta).setParameter(1, grupo).setParameter(2, fecha).getSingleResult();
+		Concierto resultado = (Concierto) em.createQuery(consulta).setParameter(1, grupo).setParameter(2, fecha)
+				.getSingleResult();
 		return resultado;
 	}
-	
+
 	private void restarTicketsComprados(EntityManager em, int grupo, Date fecha, int tickets) {
 		String update = "UPDATE Concierto c SET c.ticketsDisponibles = c.ticketsDisponibles - ?1 WHERE c.idGrupo = ?2 and c.fecha = ?3";
 		em.createQuery(update).setParameter(1, tickets).setParameter(2, grupo).setParameter(3, fecha);
 	}
 }
-
