@@ -53,7 +53,7 @@ public class RegisterUCPPool {
 			PoolDataSourceFactory.getPoolDataSource();
 		pds.setConnectionFactoryClassName(
 			"oracle.jdbc.pool.OracleDataSource");
-		pds.setURL("jdbc:oracle:thin:HR/hr@localhost:1521:xe");
+		pds.setURL("jdbc:oracle:thin:hr/HR@localhost:1521:xe");
 			
 		//// Configuraci�n del pool   
 		pds.setMinPoolSize(3);

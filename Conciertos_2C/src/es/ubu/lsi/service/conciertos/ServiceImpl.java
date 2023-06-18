@@ -71,6 +71,24 @@ public class ServiceImpl extends PersistenceService implements Service {
 
 	@Override
 	public void eliminarCliente(String nif) throws PersistenceException {
+		emf = Persistence.createEntityManagerFactory("Conciertos");
+
+		em = emf.createEntityManager();
+
+		et = em.getTransaction();
+		et.begin();
+		try {
+			String eliminaCompra = "DELETE FROM Compra c WHERE c.NIF = ?1";
+			String eliminaPedido = "DELETE FROM Pedido p WHERE p.NIF= ?1";
+			String eliminaCliente = "DELETE FROM Cliente c WHERE c.NIF = ?1";
+			
+			em.createQuery(eliminaCompra).setParameter(1, nif).executeUpdate();
+			em.createQuery(eliminaPedido).setParameter(1, nif).executeUpdate();
+			em.createQuery(eliminaCliente).setParameter(1, nif).executeUpdate();
+			
+		} catch (Exception e) {
+			
+		}
 
 	}
 
@@ -84,6 +102,8 @@ public class ServiceImpl extends PersistenceService implements Service {
 
 		et = em.getTransaction();
 		et.begin();
+		
+		try {
 
 		String consulta = "SELECT * FROM Grupo JOIN FETCH g.conciertos c JOIN FETCH c.compras co JOIN FETCH co.cliente";
 		List<?> gruposList = em.createQuery(consulta).getResultList(); 
@@ -91,7 +111,13 @@ public class ServiceImpl extends PersistenceService implements Service {
 		for (Object resValue : gruposList) {
 			resultado.add((Grupo) resValue);
 		}
+				
 		
+		} catch (Exception e) {
+			
+			System.out.println("Se produjo un problema durante el proceso de consecución de grupos");
+			
+		}
 		return resultado;
 	}
 
